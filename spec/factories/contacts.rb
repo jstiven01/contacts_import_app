@@ -7,7 +7,6 @@ FactoryBot.define do
     credit_card { '371449635398431' }
     franchise_credit_card { 'MasterCard' }
     sequence(:email) { |n| "email#{n}@email.com" }
-    is_imported { true }
     association :user
   end
 end

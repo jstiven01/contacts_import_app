@@ -9,7 +9,6 @@ RSpec.describe Contact, type: :model do
     it { should validate_presence_of(:credit_card) }
     it { should validate_presence_of(:franchise_credit_card) }
     it { should validate_presence_of(:email) }
-    it { should validate_presence_of(:is_imported) }
 
     it 'has a valid factory' do
       contact = FactoryBot.create(:contact)
