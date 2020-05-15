@@ -5,5 +5,6 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   has_many :contacts
+  has_many :invalid_contacts
   has_many :import_files
 end
