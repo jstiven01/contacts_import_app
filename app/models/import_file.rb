@@ -15,9 +15,8 @@ class ImportFile < ApplicationRecord
   end
 
   def import_data(file)
-    CSV.foreach(file.path, headers: true) do |_row|
-      p 'hehehhe', file
-      # Contact.create! row.to_hash
+    CSV.foreach(file.path, headers: true) do |row|
+      user.contacts.create! row.to_hash
     end
   end
 end
