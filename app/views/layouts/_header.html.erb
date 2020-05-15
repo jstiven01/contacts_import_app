@@ -1,0 +1,16 @@
+<header class="navbar navbar-dark bg-primary">
+<div class="container-fluid">
+  <div class="row m-0 d-flex justify-content-between">
+    <div class="col-4">
+      <%= link_to "Contact Import APP", root_path , class: "navbar-brand", id: "logo" %>
+    </div>
+      <ul class="col-8 d-flex justify-content-end align-items-center main-links">
+          <% if user_signed_in? %>
+              <li class="pr-0">
+                <%= link_to "Sign out", destroy_user_session_path, method: :delete %>
+              </li>
+        <% end %>
+      </ul>
+    </div>
+</div>
+</header>
