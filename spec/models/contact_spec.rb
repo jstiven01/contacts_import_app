@@ -57,4 +57,14 @@ RSpec.describe Contact, type: :model do
         .with_message('only formats (+00) 000 000 00 00 and (+00) 000-000-00-00 are allowed')
     }
   end
+
+  describe 'format email validations' do
+    it { should allow_value('example@example.com').for(:email) }
+    it { should_not allow_value('a@example').for(:email) }
+    it {
+      should validate_uniqueness_of(:email)
+        .case_insensitive.scoped_to(:user_id)
+        .with_message("you can't have two contacts with the same email")
+    }
+  end
 end
