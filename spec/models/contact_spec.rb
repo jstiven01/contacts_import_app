@@ -27,4 +27,25 @@ RSpec.describe Contact, type: :model do
     it { should allow_value('John Doe1').for(:name) }
     it { should_not allow_value('John ? Doe').for(:name).with_message('special characters are not allowed except -') }
   end
+
+  describe ' format birth date validations' do
+    it 'should accept birth date format %Y%m%d  ' do
+      user = FactoryBot.create(:user)
+      contact_valid = FactoryBot.create(:contact, birth_date: '20071119', user: user)
+      expect(contact_valid.valid?).to be_truthy
+    end
+
+    it 'should accept birth date with format of ISO 8601' do
+      user = FactoryBot.create(:user)
+      contact_valid = FactoryBot.create(:contact, birth_date: '2007-11-19', user: user)
+      expect(contact_valid.valid?).to be_truthy
+    end
+
+    it 'should reject birth date with format different of ISO 8601' do
+      user = FactoryBot.create(:user)
+      contact_invalid = FactoryBot.create(:contact, user: user)
+      contact_invalid.birth_date = '2007/07/01'
+      expect(contact_invalid.valid?).to be_falsy
+    end
+  end
 end
