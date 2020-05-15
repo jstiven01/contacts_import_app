@@ -6,6 +6,9 @@
     </div>
       <ul class="col-8 d-flex justify-content-end align-items-center main-links">
           <% if user_signed_in? %>
+              <li>
+                <%= link_to "Import CSV File", new_import_file_path %>
+              </li>
               <li class="pr-0">
                 <%= link_to "Sign out", destroy_user_session_path, method: :delete %>
               </li>

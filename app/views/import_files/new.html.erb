@@ -1,0 +1,6 @@
+<h1>ImportFiles#new</h1>
+<p>Find me in app/views/import_files/new.html.erb</p>
+<%= form_tag import_import_files_path, multipart: true do %>
+  <%= file_field_tag :file %>
+  <%= submit_tag "Upload Contacts" %>
+<% end %>

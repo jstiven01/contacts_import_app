@@ -12,6 +12,6 @@ RSpec.describe User, type: :model do
 
   describe 'associations' do
     it { is_expected.to have_many(:contacts) }
-    xit { is_expected.to have_many(:files) }
+    it { is_expected.to have_many(:import_files) }
   end
 end
