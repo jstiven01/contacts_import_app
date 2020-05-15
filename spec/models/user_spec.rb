@@ -9,4 +9,9 @@ RSpec.describe User, type: :model do
       expect(user).to be_valid
     end
   end
+
+  describe 'associations' do
+    it { is_expected.to have_many(:contacts) }
+    xit { is_expected.to have_many(:files) }
+  end
 end
