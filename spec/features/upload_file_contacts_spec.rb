@@ -26,4 +26,25 @@ RSpec.describe 'Upload file contacts', type: :feature do
       expect(new_file.error?).to be_truthy
     end
   end
+
+  describe 'Interface My Import Files', focus: true do
+    let(:user) { create(:user) }
+    let(:csv_file_complete) { File.new(fixture_path + '/file_complete.csv') }
+
+    before(:each) do
+      new_file = FactoryBot.create(:import_file, user: user)
+      new_file.import_data(csv_file_complete)
+      visit root_path
+      within 'form' do
+        fill_in 'Email', with: user.email
+        fill_in 'Password', with: user.password
+        click_button 'Log in'
+      end
+    end
+
+    scenario 'Creating a Valid Contacts succesfully!' do
+      click_link 'My Imported Files'
+      expect(page).to have_content 'file.csv'
+    end
+  end
 end
