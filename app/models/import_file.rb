@@ -15,9 +15,19 @@ class ImportFile < ApplicationRecord
   end
 
   def import_data(file)
+    error_importing = true
     CSV.foreach(file.path, headers: true) do |row|
       new_contact = user.contacts.build row.to_hash
-      user.invalid_contacts.create! row.to_hash unless new_contact.save
+      if new_contact.save
+        error_importing = false
+      else
+        user.invalid_contacts.create! row.to_hash
+      end
+    end
+    if error_importing
+      error!
+    else
+      complete!
     end
   end
 end
