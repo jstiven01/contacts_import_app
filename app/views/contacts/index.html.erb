@@ -1,8 +1,19 @@
-<h1>Contacts#index</h1>
-<p>Find me in app/views/contacts/index.html.erb</p>
+<h3>Contacts</h3>
 
 <div class="row m-0">
-    <ul class="col-12 posts">
+<table class="table">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">Name Contact</th>
+      <th scope="col">Birth Date</th>
+      <th scope="col">Phone</th>
+      <th scope="col">Address</th>
+      <th scope="col">Credit Card (4 last digits)</th>
+      <th scope="col">Franchise</th>
+      <th scope="col">Email</th>
+    </tr>
+  </thead>
+     <tbody>
     <%= render @contacts %>
-    </ul>
+    </tbody>
 </div>

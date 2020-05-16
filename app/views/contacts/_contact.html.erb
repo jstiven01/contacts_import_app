@@ -1,3 +1,9 @@
-<li class="card border-secondary text-secondary mb-3" id="contact-<%= contact.id %>">
-   <p><%= contact.name %></p>
-</li>
+<tr id="contact-<%= contact.id %>">
+   <td><%= contact.name %></td>
+   <td><%= formatting_date(contact.birth_date) %></td>
+   <td><%= contact.phone %></td>
+   <td><%= contact.address %></td>
+   <td><%= contact.four_digits %></td>
+   <td><%= contact.franchise_credit_card %></td>
+   <td><%= contact.email %></td>
+</tr>
