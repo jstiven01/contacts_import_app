@@ -1,2 +1,8 @@
-name,birth_date,phone,address,credit_card,franchise_credit_card,email
-Test 1,2007-01-02,(+00) 000-000-00-00,my address,371449635398431,American Express,aaa@example.com
+name,birth_date,phone,address,credit_card,email
+Test 1,2007-01-02,(+00) 000-000-00-00,my address,371449635398431,aaa1@example.com
+Test 2,2007-01-02,(00 000-000-00-00,my address,371449635398431,aaa2@example.com
+Test 3,2007-01-02,(+00) 000-000-00-00,my address,30569309025904,aaa3@example.com
+Test 4,2007-01/02,(+00) 000-000-00-00,my address,371449635398431,aaa4@example.com
+Test 5,2007-01-02,(+00) 000-000-00-00,my address,5555555555554444,aaa5@example.com
+Test 6,2007-01-02,(+00) 000-000-00-00,my address,379635398431,aaa6@example.com
+Test 7,2007-01-02,(+00) 000-000-00-00,my address,4111111111111111,aaa7@example.com
