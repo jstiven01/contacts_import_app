@@ -22,4 +22,8 @@ class CreditCard
   def four_digits
     @credit_card.last(4).to_s
   end
+
+  def encryption
+    BCrypt::Password.create(@credit_card)
+  end
 end

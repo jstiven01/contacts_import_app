@@ -7,12 +7,11 @@ RSpec.describe Contact, type: :model do
     it { should validate_presence_of(:phone) }
     it { should validate_presence_of(:address) }
     it { should validate_presence_of(:credit_card) }
-    it { should validate_presence_of(:four_digits) }
     it { should validate_presence_of(:franchise_credit_card) }
     it { should validate_presence_of(:email) }
 
     it 'has a valid factory' do
-      contact = FactoryBot.create(:contact)
+      contact = FactoryBot.build(:contact)
       expect(contact).to be_valid
     end
   end
@@ -31,19 +30,19 @@ RSpec.describe Contact, type: :model do
   describe 'format birth date validations' do
     it 'should accept birth date format %Y%m%d  ' do
       user = FactoryBot.create(:user)
-      contact_valid = FactoryBot.create(:contact, birth_date: '20071119', user: user)
+      contact_valid = FactoryBot.build(:contact, birth_date: '20071119', user: user)
       expect(contact_valid.valid?).to be_truthy
     end
 
     it 'should accept birth date with format of ISO 8601' do
       user = FactoryBot.create(:user)
-      contact_valid = FactoryBot.create(:contact, birth_date: '2007-11-19', user: user)
+      contact_valid = FactoryBot.build(:contact, birth_date: '2007-11-19', user: user)
       expect(contact_valid.valid?).to be_truthy
     end
 
     it 'should reject birth date with format different of ISO 8601' do
       user = FactoryBot.create(:user)
-      contact_invalid = FactoryBot.create(:contact, user: user)
+      contact_invalid = FactoryBot.build(:contact, user: user)
       contact_invalid.birth_date = '2007/07/01'
       expect(contact_invalid.valid?).to be_falsy
     end

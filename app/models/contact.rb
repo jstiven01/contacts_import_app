@@ -2,6 +2,7 @@ class Contact < ApplicationRecord
   belongs_to :user
 
   validate :credit_card_info
+  after_validation :encrypt_credit_card
 
   validates_presence_of :name, :birth_date, :phone, :address, :credit_card,
                         :franchise_credit_card, :email, :four_digits
@@ -37,5 +38,9 @@ class Contact < ApplicationRecord
     else
       errors.add(:credit_card, 'Invalid credit card number')
     end
+  end
+
+  def encrypt_credit_card
+    self.credit_card = CreditCard.new(credit_card).encryption
   end
 end

@@ -5,7 +5,7 @@ FactoryBot.define do
     phone { '(+00) 000 000 00 00' }
     address { 'My Address' }
     credit_card { '371449635398431' }
-    four_digits { '' }
+    four_digits { '8431' }
     franchise_credit_card { 'MasterCard' }
     sequence(:email) { |n| "email#{n}@email.com" }
     association :user
