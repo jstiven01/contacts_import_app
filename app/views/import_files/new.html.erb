@@ -1,6 +1,36 @@
 <h3>Import CSV Files</h3>
+<div class="row">
 
-<%= form_tag import_import_files_path, multipart: true do %>
-  <%= file_field_tag :file %>
-  <%= submit_tag "Upload Contacts" %>
+<%= form_tag import_import_files_path, multipart: true, class: "mx-auto" do %>
+  <div class="form-group">
+  <%= file_field_tag :file, required: true %>
+  </div>
+  <div class="form-group">
+  <%= label_tag 'name', 'Write name column CSV File of name contact'%>
+  <%= text_field_tag :name, '', :required => true %>
+  </div>
+  <div class="form-group">
+    <%= label_tag 'birth_date', 'Write name column CSV File of birth date contact'%>
+  <%= text_field_tag :birth_date, '', :required => true %>
+  </div>
+  <div class="form-group">
+    <%= label_tag 'phone', 'Write name column CSV File of phone contact'%>
+  <%= text_field_tag :phone, '', :required => true %>
+  </div>
+  <div class="form-group">
+    <%= label_tag 'address', 'Write name column CSV File of address contact'%>
+  <%= text_field_tag :address, '', :required => true %>
+  </div>
+  <div class="form-group">
+    <%= label_tag 'credit_card', 'Write name column CSV File of credit card contact'%>
+  <%= text_field_tag :credit_card, '', :required => true %>
+  </div>
+  <div class="form-group">
+    <%= label_tag 'email', 'Write name column CSV File of email contact'%>
+  <%= text_field_tag :email, '', :required => true %>
+  </div>
+  <div class="form-group">
+  <%= submit_tag "Upload Contacts" , class: "btn btn-primary"%>
+
 <% end %>
+</div>

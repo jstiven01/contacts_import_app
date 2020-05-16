@@ -1,5 +1,8 @@
 class ImportFilesController < ApplicationController
-  def new; end
+  before_action :authenticate_user!
+  def new
+    @import_file = ImportFile.new
+  end
 
   def index
     @imported_files = ImportFile.all
@@ -8,7 +11,7 @@ class ImportFilesController < ApplicationController
   def import
     @import_file = current_user.import_files.build(name: params[:file].original_filename, state: 'processing')
     if @import_file.save
-      @import_file.import_data(params[:file])
+      @import_file.import_data(params)
       flash[:success] = 'File is processing.'
     else
       flash.now[:danger] = 'Failed to create a new file.'
