@@ -8,7 +8,7 @@ TYPES_CREDIT_CARDS = {
 }.freeze
 class CreditCard
   def initialize(number_credit_card)
-    @credit_card = number_credit_card
+    @credit_card = number_credit_card || ''
   end
 
   def franchise
@@ -17,5 +17,9 @@ class CreditCard
       cc_franchise = k if @credit_card =~ v
     end
     cc_franchise
+  end
+
+  def four_digits
+    @credit_card.last(4).to_s
   end
 end

@@ -7,6 +7,7 @@ RSpec.describe Contact, type: :model do
     it { should validate_presence_of(:phone) }
     it { should validate_presence_of(:address) }
     it { should validate_presence_of(:credit_card) }
+    it { should validate_presence_of(:four_digits) }
     it { should validate_presence_of(:franchise_credit_card) }
     it { should validate_presence_of(:email) }
 
@@ -85,6 +86,14 @@ RSpec.describe Contact, type: :model do
       contact_invalid = FactoryBot.create(:contact, user: user)
       contact_invalid.credit_card = '11111111111'
       expect(contact_invalid.valid?).to be_falsy
+    end
+  end
+
+  describe 'generating 4 last digits' do
+    it 'should accept American Express and show 4 last digits' do
+      user = FactoryBot.create(:user)
+      contact_valid = FactoryBot.create(:contact, credit_card: '371449635398431', user: user)
+      expect(contact_valid.four_digits).to eq('8431')
     end
   end
 end

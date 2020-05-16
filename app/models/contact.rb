@@ -4,7 +4,7 @@ class Contact < ApplicationRecord
   validate :credit_card_info
 
   validates_presence_of :name, :birth_date, :phone, :address, :credit_card,
-                        :franchise_credit_card, :email
+                        :franchise_credit_card, :email, :four_digits
 
   VALID_NAME_PATTERN = /\A[a-zA-Z\s\d\-]+\z/.freeze
   VALID_PHONE_PATTERN = /(\(\+\d{2}\)\s\d{3}\-\d{3}\-\d{2}\-\d{2}\z|\(\+\d{2}\)\s\d{3}\s\d{3}\s\d{2}\s\d{2}\z)/.freeze
@@ -31,6 +31,11 @@ class Contact < ApplicationRecord
   def credit_card_info
     credit_card_obj = CreditCard.new(credit_card)
     self.franchise_credit_card = credit_card_obj.franchise.to_s.capitalize
-    errors.add(:credit_card, 'Invalid credit card number') unless franchise_credit_card
+
+    if franchise_credit_card
+      self.four_digits = credit_card_obj.four_digits
+    else
+      errors.add(:credit_card, 'Invalid credit card number')
+    end
   end
 end
