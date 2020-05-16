@@ -11,7 +11,7 @@ RSpec.describe 'Upload file contacts', type: :feature do
       new_file.import_data(csv_file_complete)
       expect(Contact.count).to eq(4)
       expect(InvalidContact.count).to eq(3)
-      expect(InvalidContact.last.error_desc).to eq("Franchise credit card can't be blank")
+      expect(InvalidContact.last.error_desc).to eq('Franchise credit card Invalid credit card number')
       expect(new_file.complete?).to be_truthy
     end
 

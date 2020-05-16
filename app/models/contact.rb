@@ -5,7 +5,10 @@ class Contact < ApplicationRecord
   after_validation :encrypt_credit_card
 
   validates_presence_of :name, :birth_date, :phone, :address, :credit_card,
-                        :franchise_credit_card, :email, :four_digits
+                        :email, :four_digits
+
+  validates_presence_of :franchise_credit_card,
+                        message: 'Invalid credit card number'
 
   VALID_NAME_PATTERN = /\A[a-zA-Z\s\d\-]+\z/.freeze
   VALID_PHONE_PATTERN = /(\(\+\d{2}\)\s\d{3}\-\d{3}\-\d{2}\-\d{2}\z|\(\+\d{2}\)\s\d{3}\s\d{3}\s\d{2}\s\d{2}\z)/.freeze
@@ -37,6 +40,7 @@ class Contact < ApplicationRecord
       self.four_digits = credit_card_obj.four_digits
     else
       errors.add(:credit_card, 'Invalid credit card number')
+      errors.add(:franchise_credit_card, 'Invalid credit card number')
     end
   end
 
