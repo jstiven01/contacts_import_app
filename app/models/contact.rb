@@ -1,5 +1,8 @@
 class Contact < ApplicationRecord
   belongs_to :user
+
+  validate :credit_card_info
+
   validates_presence_of :name, :birth_date, :phone, :address, :credit_card,
                         :franchise_credit_card, :email
 
@@ -23,5 +26,11 @@ class Contact < ApplicationRecord
     Date.iso8601(birth_date)
   rescue StandardError
     errors.add(:birth_date, 'only formats YYYYMMDD and YYYY-MM-DD are allowed')
+  end
+
+  def credit_card_info
+    credit_card_obj = CreditCard.new(credit_card)
+    self.franchise_credit_card = credit_card_obj.franchise.to_s.capitalize
+    errors.add(:credit_card, 'Invalid credit card number') unless franchise_credit_card
   end
 end

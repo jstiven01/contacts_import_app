@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :import_file do
-    name { 'MyString' }
+    name { 'file.csv' }
     state { 'processing' }
     association :user
   end

@@ -66,4 +66,25 @@ RSpec.describe Contact, type: :model do
         .with_message("you can't have two contacts with the same email")
     }
   end
+
+  describe 'franchise validations' do
+    it 'should accept Mastercard Card' do
+      user = FactoryBot.create(:user)
+      contact_valid = FactoryBot.create(:contact, credit_card: '5555555555554444', user: user)
+      expect(contact_valid.franchise_credit_card).to eq('Mastercard')
+    end
+
+    it 'should accept Visa Card' do
+      user = FactoryBot.create(:user)
+      contact_valid = FactoryBot.create(:contact, credit_card: '4111111111111111', user: user)
+      expect(contact_valid.franchise_credit_card).to eq('Visa')
+    end
+
+    it 'should reject wrong number Card' do
+      user = FactoryBot.create(:user)
+      contact_invalid = FactoryBot.create(:contact, user: user)
+      contact_invalid.credit_card = '11111111111'
+      expect(contact_invalid.valid?).to be_falsy
+    end
+  end
 end
