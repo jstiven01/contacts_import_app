@@ -1,12 +1,14 @@
 FactoryBot.define do
   factory :invalid_contact do
-    name { 'MyString' }
-    birth_date { 'MyString' }
-    phone { 'MyString' }
-    address { 'MyString' }
-    credit_card { 'MyString' }
-    franchise_credit_card { 'MyString' }
-    email { 'MyString' }
-    user { nil }
+    sequence(:name) { |n| "Contact Name #{n}" }
+    birth_date { '2020-05-15' }
+    phone { '(+00) 000 000 00 00' }
+    address { 'My Address' }
+    credit_card { '371449635398431' }
+    four_digits { '8431' }
+    franchise_credit_card { 'MasterCard' }
+    sequence(:email) { |n| "email#{n}@email.com" }
+    error_desc { 'Error' }
+    association :user
   end
 end

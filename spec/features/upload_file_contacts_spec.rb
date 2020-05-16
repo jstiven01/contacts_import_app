@@ -11,6 +11,7 @@ RSpec.describe 'Upload file contacts', type: :feature do
       new_file.import_data(csv_file_complete)
       expect(Contact.count).to eq(4)
       expect(InvalidContact.count).to eq(3)
+      expect(InvalidContact.last.error_desc).to eq("Franchise credit card can't be blank")
       expect(new_file.complete?).to be_truthy
     end
 
@@ -19,6 +20,9 @@ RSpec.describe 'Upload file contacts', type: :feature do
       new_file = FactoryBot.create(:import_file, user: user)
       new_file.import_data(csv_file_error)
       expect(InvalidContact.count).to eq(3)
+      expect(InvalidContact.first.error_desc).to eq(
+        'Phone only formats (+00) 000 000 00 00 and (+00) 000-000-00-00 are allowed'
+      )
       expect(new_file.error?).to be_truthy
     end
   end
