@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ImportFilesController < ApplicationController
   before_action :authenticate_user!
   def new

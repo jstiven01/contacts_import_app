@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 FactoryBot.define do
   factory :invalid_contact do
     sequence(:name) { |n| "Contact Name #{n}" }

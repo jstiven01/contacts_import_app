@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe Contact, type: :model do
@@ -53,7 +55,7 @@ RSpec.describe Contact, type: :model do
     it { should allow_value('(+00) 000-000-00-00').for(:phone) }
     it {
       should_not allow_value('000 000 00 00').for(:phone)
-        .with_message('only formats (+00) 000 000 00 00 and (+00) 000-000-00-00 are allowed')
+                                             .with_message('only formats (+00) 000 000 00 00 and (+00) 000-000-00-00 are allowed')
     }
   end
 

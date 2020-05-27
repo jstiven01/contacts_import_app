@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ImportFile < ApplicationRecord
   belongs_to :user
   validates_presence_of :name, :state
