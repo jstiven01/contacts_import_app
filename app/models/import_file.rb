@@ -19,8 +19,7 @@ class ImportFile < ApplicationRecord
   end
 
   def import_data(params_form)
-    file = params_form[:file]
-    CSV.foreach(file.path, headers: true) do |row|
+    CSV.foreach(params_form[:file].path, headers: true) do |row|
       new_contact = user.contacts.build processing_columns(params_form, row.to_hash)
       if new_contact.save
         success_upload! if may_success_upload?
