@@ -1,18 +1,20 @@
 # frozen_string_literal: true
 
 class ImportFile < ApplicationRecord
+  include AASM
   belongs_to :user
   validates_presence_of :name, :state
 
-  STATES = %w[waiting processing error complete].freeze
+  aasm column: 'state' do
+    state :processing, initial: true
+    state :waiting, :error, :complete
 
-  STATES.each do |state|
-    define_method("#{state}?") do
-      self.state == state
+    event :succes_upload do
+      transitions from: :processing, to: :complete
     end
 
-    define_method("#{state}!") do
-      update_attribute(:state, state)
+    event :fail_upload do
+      transitions from: :processing, to: :error
     end
   end
 

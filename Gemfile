@@ -36,6 +36,12 @@ gem 'bootstrap', '~> 4.3.1'
 gem 'font-awesome-rails'
 gem 'jquery-rails'
 
+# pundit
+gem 'pundit', '~> 2.1'
+
+# AASM
+gem 'aasm', '~> 5.0', '>= 5.0.8'
+
 # Use ActiveStorage variant
 # gem 'mini_magick', '~> 4.8'
 
