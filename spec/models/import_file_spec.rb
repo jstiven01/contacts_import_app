@@ -21,9 +21,9 @@ RSpec.describe ImportFile, type: :model do
       expect(@file).to have_state(:processing)
     end
 
-    it 'validates possible transitions', focus: true do
-      expect(@file).to transition_from(:processing).to(:complete).on_event(:succes_upload)
-      expect(@file).not_to transition_from(:processing).to(:waiting).on_event(:succes_upload)
+    it 'validates possible transitions' do
+      expect(@file).to transition_from(:processing).to(:complete).on_event(:success_upload)
+      expect(@file).not_to transition_from(:processing).to(:waiting).on_event(:success_upload)
       expect(@file).to transition_from(:processing).to(:error).on_event(:fail_upload)
     end
   end

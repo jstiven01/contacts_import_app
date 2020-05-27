@@ -9,7 +9,7 @@ class ImportFile < ApplicationRecord
     state :processing, initial: true
     state :waiting, :error, :complete
 
-    event :succes_upload do
+    event :success_upload do
       transitions from: :processing, to: :complete
     end
 
@@ -22,6 +22,7 @@ class ImportFile < ApplicationRecord
     file = params_form[:file]
     error_importing = true
     CSV.foreach(file.path, headers: true) do |row|
+      #p 'new contact', processing_columns(params_form, row.to_hash)
       new_contact = user.contacts.build processing_columns(params_form, row.to_hash)
       if new_contact.save
         error_importing = false
@@ -32,9 +33,9 @@ class ImportFile < ApplicationRecord
       end
     end
     if error_importing
-      error!
+      fail_upload!
     else
-      complete!
+      success_upload!
     end
   end
 
