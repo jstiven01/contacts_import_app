@@ -1,13 +1,14 @@
 # frozen_string_literal: true
 
 class ImportFilesController < ApplicationController
-  before_action :authenticate_user!
   def new
     @import_file = ImportFile.new
+    authorize @import_file
   end
 
   def index
     @imported_files = ImportFile.all
+    authorize @imported_files
   end
 
   def import

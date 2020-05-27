@@ -8,7 +8,7 @@ RSpec.describe 'Upload file contacts', type: :feature do
     let(:csv_file_complete) { File.new(fixture_path + '/file_complete.csv') }
 
     before(:each) do
-      visit root_path
+      visit new_user_session_path
       within 'form' do
         fill_in 'Email', with: user.email
         fill_in 'Password', with: user.password

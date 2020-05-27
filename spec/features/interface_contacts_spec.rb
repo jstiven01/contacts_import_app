@@ -14,7 +14,7 @@ RSpec.describe 'Interface Valid/Invalid Contacts', type: :feature do
                                           error_desc: 'only formats YYYYMMDD and YYYY-MM-DD are allowed', user: user)
       FactoryBot.create(:invalid_contact, name: '????',
                                           error_desc: 'special characters are not allowed except -', user: user)
-      visit root_path
+      visit new_user_session_path
       within 'form' do
         fill_in 'Email', with: user.email
         fill_in 'Password', with: user.password
