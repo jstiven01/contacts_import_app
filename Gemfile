@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
@@ -33,6 +35,12 @@ gem 'devise', '~> 4.7', '>= 4.7.1'
 gem 'bootstrap', '~> 4.3.1'
 gem 'font-awesome-rails'
 gem 'jquery-rails'
+
+# pundit
+gem 'pundit', '~> 2.1'
+
+# AASM
+gem 'aasm', '~> 5.0', '>= 5.0.8'
 
 # Use ActiveStorage variant
 # gem 'mini_magick', '~> 4.8'

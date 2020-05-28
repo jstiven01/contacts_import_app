@@ -1,51 +1,55 @@
+# frozen_string_literal: true
+
 class ImportFile < ApplicationRecord
+  include AASM
   belongs_to :user
   validates_presence_of :name, :state
 
-  STATES = %w[waiting processing error complete].freeze
+  aasm column: 'state' do
+    state :processing, initial: true
+    state :waiting, :error, :complete
 
-  STATES.each do |state|
-    define_method("#{state}?") do
-      self.state == state
+    event :success_upload do
+      transitions from: %i[processing error], to: :complete
     end
 
-    define_method("#{state}!") do
-      update_attribute(:state, state)
+    event :fail_upload do
+      transitions from: :processing, to: :error
     end
   end
 
   def import_data(params_form)
-    file = params_form[:file]
-    error_importing = true
-    CSV.foreach(file.path, headers: true) do |row|
+    CSV.foreach(params_form[:file].path, headers: true) do |row|
       new_contact = user.contacts.build processing_columns(params_form, row.to_hash)
-      if new_contact.save
-        error_importing = false
+      if new_contact.save && may_success_upload?
+        success_upload!
       else
-        new_invalid_contact = user.invalid_contacts.build processing_columns(params_form, row.to_hash)
-        new_invalid_contact.error_desc = new_contact.errors.full_messages.first
-        new_invalid_contact.save
+        saving_invalid_contact!(params_form, new_contact, row)
       end
     end
-    if error_importing
-      error!
-    else
-      complete!
+  end
+
+  def saving_invalid_contact!(params_form, new_contact, row_contact)
+    new_invalid_contact = user.invalid_contacts.build processing_columns(params_form, row_contact.to_hash)
+    new_invalid_contact.error_desc = new_contact.errors.full_messages.first
+    new_invalid_contact.save
+    fail_upload! if may_fail_upload?
+  end
+
+  def mapping_fields_file(params_form)
+    fields = %w[name birth_date phone address credit_card email]
+    fields.each_with_object({}) do |k, hash|
+      hash[params_form[k]] = k
     end
   end
 
   def processing_columns(params_form, row_hash)
-    hash_relation = {
-      params_form[:name].to_s => 'name',
-      params_form[:birth_date].to_s => 'birth_date',
-      params_form[:phone].to_s => 'phone',
-      params_form[:address].to_s => 'address',
-      params_form[:credit_card].to_s => 'credit_card',
-      params_form[:email].to_s => 'email'
-    }
     final_hash = {}
+    hash_relation = mapping_fields_file(params_form)
     row_hash.each do |key, element|
-      final_hash[hash_relation[key]] = element if hash_relation.keys.include?(key)
+      next unless hash_relation.keys.include?(key)
+
+      final_hash[hash_relation[key]] = element
     end
 
     final_hash
