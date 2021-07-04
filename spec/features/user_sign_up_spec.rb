@@ -5,7 +5,7 @@ require 'rails_helper'
 RSpec.describe 'User sign up', type: :feature do
   describe 'User sign up cases' do
     before(:each) do
-      visit root_path
+      visit new_user_session_path
       click_link 'Sign up'
       within 'form' do
         fill_in 'Email', with: 'kingLear@tragedy.com'
